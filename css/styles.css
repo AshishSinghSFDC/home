@@ -117,6 +117,7 @@ img {
 
 .welcome {
     margin: 50px auto;
+    max-width: 15%;
 }
 
 .intro {

@@ -30,3 +30,15 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
 } else {
   revealItems.forEach((item) => item.classList.add('visible'));
 }
+
+const glow = document.querySelector('.cursor-glow');
+if (glow && window.matchMedia('(pointer: fine)').matches) {
+  window.addEventListener('pointermove', (event) => {
+    glow.style.left = `${event.clientX}px`;
+    glow.style.top = `${event.clientY}px`;
+    glow.style.opacity = '1';
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', () => {
+    glow.style.opacity = '0';
+  });
+}

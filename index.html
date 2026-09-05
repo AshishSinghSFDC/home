@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" href="favicon.ico">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -35,9 +34,10 @@
   <main id="main">
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-copy reveal">
-        <p class="eyebrow"><span></span> Salesforce engineering · Solution design</p>
-        <h1 id="hero-title">I turn complex business needs into <em>clear, scalable Salesforce solutions.</em></h1>
-        <p class="hero-lede">I design and deliver dependable Salesforce platforms—from automation and custom development to digital experiences, enterprise releases, and AI-enabled solutions.</p>
+        <div class="signal"><span class="signal-dot"></span> Building the next generation of Salesforce experiences</div>
+        <p class="eyebrow"><span></span> Salesforce engineering · Solution architecture · AI</p>
+        <h1 id="hero-title">Complex systems.<br><em>Beautifully solved.</em></h1>
+        <p class="hero-lede">I turn ambitious business ideas into intelligent Salesforce platforms—designed with clarity, engineered for scale, and built for the people who use them.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#contact">Start a conversation <span aria-hidden="true">↗</span></a>
           <a class="button button-quiet" href="#expertise">Explore my work <span aria-hidden="true">↓</span></a>
@@ -49,16 +49,30 @@
         </div>
       </div>
 
-      <div class="hero-visual reveal" aria-label="Portrait of Ashish Singh">
+      <div class="hero-visual reveal" aria-label="Ashish Singh solution design profile">
         <div class="orbit orbit-one"></div>
         <div class="orbit orbit-two"></div>
-        <div class="portrait-frame">
-          <img src="Images/Ashish_Singh.jpg" alt="Ashish Singh" width="560" height="680">
-          <div class="portrait-shade"></div>
-          <p><span>Currently exploring</span><strong>AI + Salesforce</strong></p>
+        <div class="solution-card">
+          <div class="solution-topbar">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <span>solution.blueprint</span>
+            <span class="live-label"><i></i> live</span>
+          </div>
+          <div class="profile-row">
+            <img src="https://avatars.githubusercontent.com/u/61347766?v=4" alt="Ashish Singh" width="92" height="92">
+            <div><small>Solution owner</small><strong>Ashish Singh</strong><span>Salesforce Engineer & Solution Designer</span></div>
+          </div>
+          <div class="flow-map" aria-label="A solution flow connecting strategy, platform and outcomes">
+            <div class="flow-node node-strategy"><span>01</span><strong>Strategy</strong><small>Understand the outcome</small></div>
+            <div class="flow-line line-one"></div>
+            <div class="flow-node node-platform"><span>02</span><strong>Platform</strong><small>Design for scale</small></div>
+            <div class="flow-line line-two"></div>
+            <div class="flow-node node-impact"><span>03</span><strong>Impact</strong><small>Ship with confidence</small></div>
+          </div>
+          <div class="solution-footer"><span>Architecture</span><span>Automation</span><span>Experience</span><span>AI</span></div>
         </div>
-        <div class="floating-card card-build"><span class="card-icon">⌁</span><div><small>I build</small><strong>Connected experiences</strong></div></div>
-        <div class="floating-card card-solve"><span class="status-dot"></span><div><small>My lens</small><strong>Clarity at scale</strong></div></div>
+        <div class="floating-card card-build"><span class="card-icon">✦</span><div><small>Design principle</small><strong>Simple by intention</strong></div></div>
+        <div class="floating-card card-solve"><span class="status-dot"></span><div><small>Delivery mode</small><strong>Outcome focused</strong></div></div>
       </div>
     </section>
 
@@ -76,6 +90,31 @@
           <p class="lead">I’m a Salesforce professional who enjoys the space where business context, thoughtful architecture, and hands-on delivery meet.</p>
           <p>My work spans custom development, low-code automation, Experience Cloud portals, OmniStudio experiences, Public Sector and Grants solutions, Revenue Cloud, security, integrations, and release execution. I care about solutions that are not only technically sound, but also understandable, maintainable, and ready for teams to own.</p>
           <p>I’m now bringing that delivery experience deeper into solution design—asking better questions, reducing unnecessary complexity, and shaping systems that work well beyond launch day.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="impact-band">
+      <div class="shell">
+        <div class="section-kicker reveal">The value I bring</div>
+        <div class="impact-grid">
+          <article class="impact-card impact-main reveal">
+            <span class="impact-label">From ambiguity to architecture</span>
+            <h2>I connect the dots others see as separate.</h2>
+            <p>Business intent, user experience, platform constraints, data, security, and delivery all belong in the same conversation.</p>
+            <div class="constellation" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><span></span><span></span><span></span></div>
+          </article>
+          <article class="impact-card impact-stat reveal">
+            <div class="pulse-rings"><i></i><i></i><i></i></div>
+            <span class="impact-label">My operating model</span>
+            <strong>Think deeply.<br>Build practically.<br>Own completely.</strong>
+          </article>
+          <article class="impact-card impact-stack reveal">
+            <span class="impact-label">Platform range</span>
+            <div class="stack-list">
+              <span><b>01</b> Core Salesforce</span><span><b>02</b> Experience Cloud</span><span><b>03</b> OmniStudio</span><span><b>04</b> Revenue Cloud</span><span><b>05</b> Agentforce</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -161,6 +200,7 @@
       </div>
     </section>
   </main>
+  <div class="cursor-glow" aria-hidden="true"></div>
 
   <footer class="footer">
     <div class="shell footer-inner">

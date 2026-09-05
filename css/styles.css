@@ -32,6 +32,14 @@ img { display: block; max-width: 100%; }
 .nav-links a:not(.nav-cta):hover { color: var(--orange-deep); }
 .nav-links .nav-cta { display: inline-flex; gap: 16px; align-items: center; padding: 11px 18px; border-radius: 999px; background: var(--ink); color: white; font-weight: 600; }
 .nav-links .nav-cta span { color: var(--orange); }
+.arrow-mark { position: relative; display: inline-block; flex: 0 0 auto; width: 13px; height: 13px; color: currentColor; transition: transform .2s ease; }
+.arrow-mark::before { content: ''; position: absolute; top: 1px; right: 0; width: 7px; height: 7px; border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor; }
+.arrow-mark::after { content: ''; position: absolute; top: 7px; left: 1px; width: 13px; height: 1.5px; border-radius: 2px; background: currentColor; transform: rotate(-45deg); transform-origin: center; }
+a:hover > .arrow-mark { transform: translate(2px, -2px); }
+.down-mark { position: relative; display: inline-block; flex: 0 0 auto; width: 12px; height: 15px; color: currentColor; transition: transform .2s ease; }
+.down-mark::before { content: ''; position: absolute; left: 5px; top: 0; width: 1.5px; height: 12px; border-radius: 2px; background: currentColor; }
+.down-mark::after { content: ''; position: absolute; left: 2px; bottom: 1px; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); }
+a:hover > .down-mark { transform: translateY(2px); }
 .menu-toggle { display: none; border: 0; background: transparent; padding: 8px; }
 .menu-toggle span { display: block; width: 24px; height: 2px; margin: 5px; background: var(--ink); }
 
@@ -88,6 +96,7 @@ h1 span, .display-title em, .contact h2 span { color: var(--orange); font-style:
 .profile-ribbon strong { margin: 2px 0; font: 700 1.2rem var(--font-heading); }
 .profile-ribbon div span { color: var(--orange-deep); font-size: .82rem; font-weight: 600; }
 .profile-ribbon > a { padding: 12px 18px; border-radius: 999px; background: var(--ink); color: white; font-size: .82rem; font-weight: 600; text-decoration: none; }
+.profile-ribbon > a, .footer-links a { display: inline-flex; align-items: center; gap: 10px; }
 
 .dark-journey { overflow: hidden; padding-block: 130px; background: var(--night); color: white; }
 .dark-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 10%; align-items: center; }
@@ -114,6 +123,9 @@ h1 span, .display-title em, .contact h2 span { color: var(--orange); font-style:
 .capability h3 { margin: 0 0 7px; font-size: clamp(1.55rem, 2.4vw, 2.2rem); line-height: 1.15; letter-spacing: -.045em; }
 .capability p { max-width: 650px; margin: 0; color: #706960; }
 .capability-icon { justify-self: end; display: grid; width: 54px; height: 54px; place-items: center; border: 1px solid var(--ink); border-radius: 50%; color: var(--orange-deep); font: 500 1.6rem var(--font-heading); transition: background .2s ease, color .2s ease; }
+.capability-icon .arrow-mark { display: block; width: 16px; height: 16px; }
+.capability-icon .arrow-mark::before { width: 9px; height: 9px; border-width: 2px; }
+.capability-icon .arrow-mark::after { top: 9px; width: 16px; height: 2px; }
 .capability:hover .capability-icon { background: var(--orange); color: white; border-color: var(--orange); }
 
 .approach { background: var(--white); }

@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20260912-journey-first">
+  <link rel="stylesheet" href="css/styles.css?v=20260912-anchored-fade">
+  <noscript><style>.journey-art .halftone,.journey-art .journey-label,.journey-art .journey-node,.journey-art .route,.journey-art .route-shadow,.reveal{opacity:1!important;transform:none!important;filter:none!important}.journey-art .route,.journey-art .route-shadow{stroke-dashoffset:0!important}</style></noscript>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -35,21 +36,23 @@
 
   <main id="main">
     <section class="hero shell" aria-labelledby="hero-title">
-      <div class="journey-art reveal" aria-hidden="true">
+      <div class="journey-art" role="img" aria-label="Understand, Design, Deliver: three connected steps">
         <div class="halftone halftone-a"></div>
         <div class="halftone halftone-b"></div>
         <div class="halftone halftone-c"></div>
-        <svg viewBox="0 0 760 430" role="presentation">
-          <path class="route-shadow" d="M35 360C170 344 210 273 341 304C442 328 461 229 551 203C640 177 621 93 729 50"/>
-          <path class="route" d="M35 360C170 344 210 273 341 304C442 328 461 229 551 203C640 177 621 93 729 50"/>
-          <circle cx="35" cy="360" r="9"/><circle cx="341" cy="304" r="9"/><circle cx="729" cy="50" r="12"/>
+        <div class="journey-stage" aria-hidden="true">
+        <svg viewBox="0 0 760 500" role="presentation">
+          <path class="route-shadow" pathLength="1" d="M35 360C170 344 210 273 341 304C442 328 461 229 551 203C640 177 621 93 729 50"/>
+          <path class="route" pathLength="1" d="M35 360C170 344 210 273 341 304C442 328 461 229 551 203C640 177 621 93 729 50"/>
+          <circle class="journey-node node-one" cx="35" cy="360" r="9"/><circle class="journey-node node-two" cx="341" cy="304" r="9"/><circle class="journey-node node-three" cx="729" cy="50" r="12"/>
           <circle class="route-runner" r="5">
-            <animateMotion begin="5s" dur="6.5s" repeatCount="indefinite" path="M35 360C170 344 210 273 341 304C442 328 461 229 551 203C640 177 621 93 729 50"/>
+            <animateMotion begin="indefinite" dur="6.5s" repeatCount="indefinite" path="M35 360C170 344 210 273 341 304C442 328 461 229 551 203C640 177 621 93 729 50"/>
           </circle>
         </svg>
-        <span class="journey-label label-one">Understand</span>
-        <span class="journey-label label-two">Design</span>
-        <span class="journey-label label-three">Deliver</span>
+        <div class="journey-anchor anchor-one"><span class="journey-label label-one">Understand</span></div>
+        <div class="journey-anchor anchor-two"><span class="journey-label label-two">Design</span></div>
+        <div class="journey-anchor anchor-three"><span class="journey-label label-three">Deliver</span></div>
+        </div>
         <p class="side-statement">Think deeply.<br>Build practically.<br><strong>Own completely.</strong></p>
       </div>
 
@@ -162,6 +165,6 @@
       </div>
     </div>
   </footer>
-  <script src="js/main.js?v=20260912-journey-first"></script>
+  <script src="js/main.js?v=20260912-anchored-fade"></script>
 </body>
 </html>

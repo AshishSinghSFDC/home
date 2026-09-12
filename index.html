@@ -9,11 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20260905-motion">
+  <link rel="stylesheet" href="css/styles.css?v=20260912-kinetic">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
   <header class="site-header" id="top">
     <nav class="nav shell" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Ashish Singh, home">
@@ -36,7 +37,7 @@
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-copy reveal">
         <p class="overline">Independent solution thinker</p>
-        <h1 id="hero-title">Turning <span>complexity</span><br>into <span>clarity.</span></h1>
+        <h1 id="hero-title"><span class="headline-line"><i>Turning <b>complexity</b></i></span><span class="headline-line"><i>into <b>clarity.</b></i></span></h1>
         <p class="hero-lede">I shape ambitious ideas into thoughtful systems—connecting strategy, experience and execution to create outcomes that last.</p>
         <div class="hero-actions">
           <a class="button button-dark" href="#capabilities">Explore what I do <span class="down-mark" aria-hidden="true"></span></a>
@@ -52,6 +53,9 @@
           <path class="route-shadow" d="M35 360C170 344 210 273 341 304C442 328 461 229 551 203C640 177 621 93 729 50"/>
           <path class="route" d="M35 360C170 344 210 273 341 304C442 328 461 229 551 203C640 177 621 93 729 50"/>
           <circle cx="35" cy="360" r="8"/><circle cx="341" cy="304" r="8"/><circle cx="551" cy="203" r="8"/><circle cx="729" cy="50" r="12"/>
+          <circle class="route-runner" r="5">
+            <animateMotion dur="6.5s" repeatCount="indefinite" path="M35 360C170 344 210 273 341 304C442 328 461 229 551 203C640 177 621 93 729 50"/>
+          </circle>
         </svg>
         <span class="journey-label label-one">Understand</span>
         <span class="journey-label label-two">Design</span>
@@ -88,9 +92,10 @@
     <section class="dark-journey">
       <div class="shell dark-grid">
         <div class="orbit-graphic reveal" aria-hidden="true">
+          <div class="orbit-grid"></div>
           <div class="orbit-ring ring-one"></div><div class="orbit-ring ring-two"></div><div class="orbit-ring ring-three"></div>
           <div class="core-mark"><span>✦</span></div>
-          <i class="orbit-dot dot-one"></i><i class="orbit-dot dot-two"></i><i class="orbit-dot dot-three"></i>
+          <i class="orbit-satellite satellite-one"><span></span></i><i class="orbit-satellite satellite-two"><span></span></i><i class="orbit-satellite satellite-three"><span></span></i>
         </div>
         <div class="dark-copy reveal">
           <p class="overline overline-light">The value I bring</p>
@@ -157,6 +162,6 @@
       </div>
     </div>
   </footer>
-  <script src="js/main.js?v=20260905-motion"></script>
+  <script src="js/main.js?v=20260912-kinetic"></script>
 </body>
 </html>

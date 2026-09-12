@@ -20,11 +20,17 @@ navLinks?.querySelectorAll('a').forEach((link) => {
 document.getElementById('year').textContent = new Date().getFullYear();
 
 const revealItems = document.querySelectorAll('.reveal');
+document.querySelectorAll('.capability').forEach((item, index) => {
+  item.style.setProperty('--reveal-delay', `${index * 70}ms`);
+});
 if ('IntersectionObserver' in window && !reducedMotion) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        if (entry.target.classList.contains('capability')) {
+          window.setTimeout(() => entry.target.style.removeProperty('--reveal-delay'), 1000);
+        }
         observer.unobserve(entry.target);
       }
     });
@@ -40,6 +46,12 @@ const updateProgress = () => {
   const distance = document.documentElement.scrollHeight - window.innerHeight;
   const progress = distance > 0 ? Math.min(window.scrollY / distance, 1) : 0;
   if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
+  const darkSection = document.querySelector('.dark-journey');
+  if (darkSection && !reducedMotion) {
+    const rect = darkSection.getBoundingClientRect();
+    const sectionProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+    darkSection.style.setProperty('--dark-shift', sectionProgress.toFixed(3));
+  }
   progressTicking = false;
 };
 window.addEventListener('scroll', () => {
@@ -64,7 +76,7 @@ if (journey && !reducedMotion && window.matchMedia('(pointer: fine)').matches) {
 }
 
 const glow = document.querySelector('.cursor-glow');
-if (glow && window.matchMedia('(pointer: fine)').matches) {
+if (glow && !reducedMotion && window.matchMedia('(pointer: fine)').matches) {
   window.addEventListener('pointermove', (event) => {
     glow.style.left = `${event.clientX}px`;
     glow.style.top = `${event.clientY}px`;

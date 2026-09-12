@@ -63,6 +63,29 @@ window.addEventListener('scroll', () => {
 updateProgress();
 
 const journey = document.querySelector('.journey-art');
+// Start once when visible, using one CSS timeline for points, labels and path.
+if (journey && !reducedMotion) {
+  const startJourney = () => journey.classList.add('journey-started');
+  if ('IntersectionObserver' in window) {
+    const journeyObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        startJourney();
+        journeyObserver.disconnect();
+      }
+    }, { threshold: .15 });
+    journeyObserver.observe(journey);
+  } else {
+    requestAnimationFrame(startJourney);
+  }
+  journey.querySelector('.route')?.addEventListener('animationend', (event) => {
+    if (event.animationName !== 'route-draw') return;
+    const motion = journey.querySelector('animateMotion');
+    if (typeof motion?.beginElement === 'function') {
+      motion.beginElement();
+      journey.classList.add('journey-connected');
+    }
+  });
+}
 if (journey && !reducedMotion && window.matchMedia('(pointer: fine)').matches) {
   journey.addEventListener('pointermove', (event) => {
     const rect = journey.getBoundingClientRect();

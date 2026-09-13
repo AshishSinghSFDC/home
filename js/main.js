@@ -1,111 +1,138 @@
-const menuButton = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+(() => {
+  'use strict';
+  const body = document.body;
+  const root = document.documentElement;
+  const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const menu = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav-links');
+  const scene = document.querySelector('.journey-scene');
+  const stage = document.querySelector('.journey-stage');
+  const hero = document.querySelector('.hero');
+  const svg = document.querySelector('.journey-svg');
+  const motion = svg?.querySelector('animateMotion');
+  const motionButton = document.querySelector('.motion-toggle');
+  const progress = document.querySelector('.scroll-progress span');
+  const header = document.querySelector('.site-header');
+  let userPaused = false;
+  let sequenceStarted = false;
+  let frame = 0;
+  const year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+  root.dataset.ready = 'true';
 
-requestAnimationFrame(() => document.body.classList.add('motion-ready'));
-
-menuButton?.addEventListener('click', () => {
-  const isOpen = navLinks.classList.toggle('open');
-  menuButton.setAttribute('aria-expanded', String(isOpen));
-  menuButton.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-});
-
-navLinks?.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    menuButton?.setAttribute('aria-expanded', 'false');
+  function closeMenu() {
+    nav?.classList.remove('open');
+    body.classList.remove('menu-open');
+    menu?.setAttribute('aria-expanded', 'false');
+    menu?.setAttribute('aria-label', 'Open navigation');
+  }
+  menu?.addEventListener('click', () => {
+    const opened = menu.getAttribute('aria-expanded') !== 'true';
+    menu.setAttribute('aria-expanded', String(opened));
+    menu.setAttribute('aria-label', opened ? 'Close navigation' : 'Open navigation');
+    nav?.classList.toggle('open', opened);
+    body.classList.toggle('menu-open', opened);
   });
-});
-
-document.getElementById('year').textContent = new Date().getFullYear();
-
-const revealItems = document.querySelectorAll('.reveal');
-document.querySelectorAll('.capability').forEach((item, index) => {
-  item.style.setProperty('--reveal-delay', `${index * 70}ms`);
-});
-if ('IntersectionObserver' in window && !reducedMotion) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        if (entry.target.classList.contains('capability')) {
-          window.setTimeout(() => entry.target.style.removeProperty('--reveal-delay'), 1000);
-        }
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  revealItems.forEach((item) => observer.observe(item));
-} else {
-  revealItems.forEach((item) => item.classList.add('visible'));
-}
-
-const progressBar = document.querySelector('.scroll-progress span');
-let progressTicking = false;
-const updateProgress = () => {
-  const distance = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = distance > 0 ? Math.min(window.scrollY / distance, 1) : 0;
-  if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
-  const darkSection = document.querySelector('.dark-journey');
-  if (darkSection && !reducedMotion) {
-    const rect = darkSection.getBoundingClientRect();
-    const sectionProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
-    darkSection.style.setProperty('--dark-shift', sectionProgress.toFixed(3));
-  }
-  progressTicking = false;
-};
-window.addEventListener('scroll', () => {
-  if (!progressTicking) {
-    requestAnimationFrame(updateProgress);
-    progressTicking = true;
-  }
-}, { passive: true });
-updateProgress();
-
-const journey = document.querySelector('.journey-art');
-// Start once when visible, using one CSS timeline for points, labels and path.
-if (journey && !reducedMotion) {
-  const startJourney = () => journey.classList.add('journey-started');
-  if ('IntersectionObserver' in window) {
-    const journeyObserver = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        startJourney();
-        journeyObserver.disconnect();
-      }
-    }, { threshold: .15 });
-    journeyObserver.observe(journey);
-  } else {
-    requestAnimationFrame(startJourney);
-  }
-  journey.querySelector('.route')?.addEventListener('animationend', (event) => {
-    if (event.animationName !== 'route-draw') return;
-    const motion = journey.querySelector('animateMotion');
-    if (typeof motion?.beginElement === 'function') {
-      motion.beginElement();
-      journey.classList.add('journey-connected');
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+      menu.focus();
     }
   });
-}
-if (journey && !reducedMotion && window.matchMedia('(pointer: fine)').matches) {
-  journey.addEventListener('pointermove', (event) => {
-    const rect = journey.getBoundingClientRect();
-    journey.style.setProperty('--mx', String((event.clientX - rect.left) / rect.width - 0.5));
-    journey.style.setProperty('--my', String((event.clientY - rect.top) / rect.height - 0.5));
-  }, { passive: true });
-  journey.addEventListener('pointerleave', () => {
-    journey.style.setProperty('--mx', '0');
-    journey.style.setProperty('--my', '0');
-  });
-}
+  function syncMotion() {
+    const paused = userPaused || document.hidden || media.matches;
+    body.classList.toggle('motion-paused', paused);
+    motionButton.textContent = media.matches ? 'Reduced motion' : userPaused ? 'Resume motion' : 'Pause motion';
+    motionButton.setAttribute('aria-pressed', String(userPaused || media.matches));
+    motionButton.disabled = media.matches;
+    if (paused) svg?.pauseAnimations?.();
+    else svg?.unpauseAnimations?.();
+  }
+  motionButton?.addEventListener('click', () => { userPaused = !userPaused; syncMotion(); });
+  document.addEventListener('visibilitychange', syncMotion);
 
-const glow = document.querySelector('.cursor-glow');
-if (glow && !reducedMotion && window.matchMedia('(pointer: fine)').matches) {
-  window.addEventListener('pointermove', (event) => {
-    glow.style.left = `${event.clientX}px`;
-    glow.style.top = `${event.clientY}px`;
-    glow.style.opacity = '1';
-  }, { passive: true });
-  document.documentElement.addEventListener('mouseleave', () => {
-    glow.style.opacity = '0';
+  function startSequence() {
+    if (sequenceStarted || media.matches) return;
+    sequenceStarted = true;
+    root.classList.add('motion-enabled');
+    requestAnimationFrame(() => {
+      body.classList.add('scene-started');
+      syncMotion();
+    });
+  }
+  document.querySelector('.route')?.addEventListener('animationend', (event) => {
+    if (event.animationName !== 'route-draw' || media.matches) return;
+    if (motion && typeof motion.beginElement === 'function') {
+      motion.beginElement();
+      body.classList.add('scene-connected');
+      syncMotion();
+    }
   });
-}
+  const art = document.querySelector('.landscape');
+  if (art?.complete) startSequence();
+  else {
+    art?.addEventListener('load', startSequence, { once: true });
+    art?.addEventListener('error', startSequence, { once: true });
+    window.setTimeout(startSequence, 1800);
+  }
+
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+    reveals.forEach((item) => revealObserver.observe(item));
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const link = nav?.querySelector('a[href="#' + entry.target.id + '"]');
+        if (!link) return;
+        if (entry.isIntersecting) {
+          nav.querySelectorAll('[aria-current]').forEach((item) => item.removeAttribute('aria-current'));
+          link.setAttribute('aria-current', 'location');
+        } else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+    document.querySelectorAll('#story, #capabilities, #approach').forEach((item) => navObserver.observe(item));
+  } else reveals.forEach((item) => item.classList.add('visible'));
+
+  function renderScroll() {
+    frame = 0;
+    const y = Math.max(0, window.scrollY);
+    const distance = document.documentElement.scrollHeight - window.innerHeight;
+    if (progress) progress.style.transform = 'scaleX(' + (distance > 0 ? Math.min(y / distance, 1) : 0) + ')';
+    header?.classList.toggle('scrolled', y > 16);
+    if (!media.matches && !userPaused && hero && scene && window.innerWidth > 760) {
+      const rect = hero.getBoundingClientRect();
+      if (rect.bottom > 0) scene.style.setProperty('--hero-scroll', String(Math.min(1, y / rect.height)));
+    }
+  }
+  function requestScroll() { if (!frame) frame = requestAnimationFrame(renderScroll); }
+  window.addEventListener('scroll', requestScroll, { passive: true });
+  window.addEventListener('resize', () => { if (window.innerWidth > 760) closeMenu(); requestScroll(); }, { passive: true });
+  renderScroll();
+  if (window.matchMedia('(pointer: fine)').matches && scene && stage) {
+    scene.addEventListener('pointermove', (event) => {
+      if (media.matches || userPaused || window.innerWidth <= 760) return;
+      const rect = scene.getBoundingClientRect();
+      stage.style.setProperty('--pointer-x', String((event.clientX - rect.left) / rect.width - .5));
+      stage.style.setProperty('--pointer-y', String((event.clientY - rect.top) / rect.height - .5));
+    }, { passive: true });
+    scene.addEventListener('pointerleave', () => {
+      stage.style.setProperty('--pointer-x', '0');
+      stage.style.setProperty('--pointer-y', '0');
+    });
+  }
+  media.addEventListener('change', () => {
+    root.classList.toggle('motion-enabled', !media.matches);
+    if (media.matches) reveals.forEach((item) => item.classList.add('visible'));
+    else startSequence();
+    syncMotion();
+  });
+  syncMotion();
+})();

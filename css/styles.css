@@ -21,3 +21,28 @@
 /* The final milestone stays anchored to the summit at every screen size. */
 .anchor-four{left:calc(896 / 1200 * 100%);top:11%}.journey-node.node-four{fill:var(--orange);stroke:#fff;stroke-width:3}.journey-label.label-four{top:-22px;left:auto;right:25px;border-color:var(--orange);background:#fff9f1;gap:10px}.label-four strong{display:block;font-weight:600}.label-four .outcome-caption{display:block;margin-top:3px;font-size:11px;font-weight:400;color:var(--muted)}.journey-label.label-four::before{top:21px;bottom:auto;left:auto;right:-19px;width:18px;height:1px}
 @media(max-width:760px){.journey-label.label-four{top:-10px;right:16px;padding:5px 7px}.label-four .outcome-caption{font-size:9px;margin-top:2px}.journey-label.label-four::before{top:9px;right:-13px;width:12px}}
+
+/* Fit the complete desktop journey below the fixed header, even on short laptops. */
+@media(min-width:761px){
+  .hero{--opening-height:min(100svh,960px)}
+  .hero-shell{height:calc(var(--opening-height) - 92px);min-height:0}
+  .hero-copy{padding-top:clamp(16px,4svh,50px);max-width:45%}
+  .hero h1{font-size:clamp(38px,min(6.3vw,10svh),86px);margin-top:18px}
+  .journey-scene{top:12px;right:-24px;width:min(1150px,94%,calc((var(--opening-height) - 190px)*1.5))}
+  .hero-note{bottom:96px}
+  .hero-note p{font-size:clamp(20px,3.2svh,30px)}
+  .hero-note>span{margin-top:12px}
+  .hero-bottom{bottom:22px}
+}
+@media(min-width:761px) and (max-width:1100px){
+  .journey-scene{width:min(78vw,calc((var(--opening-height) - 190px)*1.5))}
+  .hero .eyebrow{font-size:10px}
+  .hero h1{font-size:clamp(38px,min(6vw,10svh),64px)}
+  .hero-note p{font-size:22px}
+}
+@media(min-width:761px) and (max-height:560px){
+  .hero-note{bottom:76px}
+  .hero-note p{font-size:18px}
+  .hero-note>span{font-size:12px;margin-top:6px}
+  .hero .eyebrow{font-size:10px}
+}

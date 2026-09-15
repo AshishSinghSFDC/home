@@ -28,7 +28,7 @@
   .hero-shell{height:calc(var(--opening-height) - 92px);min-height:0}
   .hero-copy{padding-top:clamp(16px,4svh,50px);max-width:45%}
   .hero h1{font-size:clamp(38px,min(6.3vw,10svh),86px);margin-top:18px}
-  .journey-scene{top:12px;right:-24px;width:min(1150px,94%,calc((var(--opening-height) - 190px)*1.5))}
+  .journey-scene{top:12px;right:-24px;width:min(1050px,82%,calc((var(--opening-height) - 190px)*1.5))}
   .hero-note{bottom:96px}
   .hero-note p{font-size:clamp(20px,3.2svh,30px)}
   .hero-note>span{margin-top:12px}

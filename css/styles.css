@@ -52,3 +52,11 @@
 .scene-started .summit-flag{animation:soft-in 1.2s 4.1s both}
 @media(min-width:761px){.hero h1{margin-top:0}.hero-copy{padding-top:clamp(24px,6svh,60px)}}
 @media(prefers-reduced-motion:reduce){.motion-enabled .summit-flag{opacity:1!important}}
+
+/* Feather only the artwork into the page; route markers remain sharply defined. */
+.landscape{
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 9%,#000 86%,transparent 100%),linear-gradient(to bottom,transparent 0%,#000 8%,#000 75%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent 0%,#000 9%,#000 86%,transparent 100%),linear-gradient(to bottom,transparent 0%,#000 8%,#000 75%,transparent 100%);
+  mask-composite:intersect;
+}
